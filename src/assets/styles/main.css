@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'SFProDisplay';
+  src: url('../fonts/SFProDisplay-Regular.woff2') format('woff2'),
+    url('../fonts/SFProDisplay-Regular.woff') format('woff');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SFProDisplay';
+  src: url('../fonts/SFProDisplay-Medium.woff2') format('woff2'),
+    url('../fonts/SFProDisplay-Medium.woff') format('woff');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: url('../fonts/SFUIDisplay-Regular.woff2') format('woff2'),
+    url('../fonts/SFUIDisplay-Regular.woff') format('woff');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: url('../fonts/SFUIDisplay-Medium.woff2') format('woff2'),
+    url('../fonts/SFUIDisplay-Medium.woff') format('woff');
+  font-weight: 500;
+}
+
+html,
+body {
+  font-family: 'SFUIDisplay', sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+/* @media screen and (min-width: 1600px) {
+  html {
+    font-size: 32px;
+  }
+} */
