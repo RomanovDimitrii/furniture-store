@@ -50,8 +50,10 @@ const togglePurchaseItem = () => {
     <h2 class="card__name">{{ item.name }}</h2>
     <div class="card__bottom-block">
       <div class="card__price-block">
-        <span class="card__price card__price_old">{{ item.price.old_price }}</span>
-        <span class="card__price">{{ item.price.current_price }}</span>
+        <span v-if="item.price.old_price !== null" class="card__price card__price_old"
+          >{{ Math.round(item.price.old_price) }}&#8381;</span
+        >
+        <span class="card__price">{{ Math.round(item.price.current_price) }}&#8381;</span>
       </div>
       <div class="card__actions-block">
         <img
@@ -85,6 +87,7 @@ const togglePurchaseItem = () => {
   display: block;
   height: 24px;
   width: 81px;
+  margin: 8px 0 0;
 }
 .card__discount {
   background-color: #eb5757;
@@ -95,6 +98,7 @@ const togglePurchaseItem = () => {
 .card__img {
   width: 238px;
   object-fit: contain;
+  align-self: center;
 }
 
 .card__code {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 
@@ -37,5 +37,23 @@ const items = computed(() => store.getters.sortedAndFilteredItems);
   margin: 0;
   column-gap: 48px;
   row-gap: 40px;
+}
+
+@media screen and (max-width: 1460px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>

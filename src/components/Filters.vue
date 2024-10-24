@@ -81,6 +81,7 @@ const onMaterialChange = (event: Event) => {
   width: 288px;
   height: 40px;
   background-color: #f2f2f2;
+  box-sizing: border-box;
 }
 
 .filters__select {
@@ -88,7 +89,7 @@ const onMaterialChange = (event: Event) => {
   height: 100%;
   background-color: #f2f2f2;
   border: none;
-  padding: 10px;
+  padding: 0 10px;
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -105,14 +106,22 @@ const onMaterialChange = (event: Event) => {
   transform: translateY(-50%);
   background: url('../pic/arrow-for-select.svg') no-repeat;
   background-size: contain;
-  transition: all 0.15s ease-in-out;
-}
-
-.filters__select-wrapper.on::after {
-  transform: rotate(180deg);
 }
 
 .filters__option {
   padding: 0 10px;
+}
+
+.filters__option:hover {
+  background-color: red;
+}
+
+@media screen and (max-width: 850px) {
+  .filters {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0 0;
+    row-gap: 30px;
+  }
 }
 </style>

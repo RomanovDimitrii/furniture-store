@@ -18,11 +18,9 @@ import ProductCards from './components/ProductCards.vue';
 .app-container {
   display: flex;
   flex-direction: column;
-  padding: 32px 216px 103px;
+  padding: 32px 11.25vw 103px;
   font-size: 16px;
   font-weight: 400;
-  /* width: 100vw;
-  height: 100vh; */
 }
 
 .title {
