@@ -25,14 +25,13 @@ defineOptions({
   display: flex;
   flex-direction: row;
   padding: 0;
-
   list-style-type: none;
 }
 
 .nav__item {
   text-decoration: none;
   padding: 0;
-  margin: 0 10px;
+  margin: 0 9px;
   color: #888888;
 }
 
@@ -43,10 +42,24 @@ defineOptions({
 .nav__link {
   text-decoration: none;
   color: #888888;
-  margin: 0 10px 0 0;
+  margin: 0 17px 0 0;
 }
 
 .nav__link_active {
   color: #000;
+}
+
+@media screen and (max-width: 850px) {
+  .nav__item {
+    margin: 0 2px;
+  }
+
+  .nav__item:first-of-type {
+    margin: 0 2px 0 0;
+  }
+
+  .nav__link {
+    margin: 0 5px 0 0;
+  }
 }
 </style>

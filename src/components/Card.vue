@@ -41,9 +41,9 @@ const togglePurchaseItem = () => {
 
 <template>
   <li class="card">
-    <div class="card__gap">
-      <p v-show="item.price.old_price !== null" class="card__discount">Скидка</p>
-    </div>
+    <!-- <div class="card__gap"> -->
+    <p v-show="item.price.old_price !== null" class="card__discount">Скидка</p>
+    <!-- </div> -->
     <img class="card__img" :src="item.image.url" :alt="item.name" />
     <p class="card__code">{{ item.code }}</p>
     <p v-if="item.code === null" class="card__code"></p>
@@ -58,18 +58,17 @@ const togglePurchaseItem = () => {
       <div class="card__actions-block">
         <img
           class="card__icon"
-          :src="item.isLiked ? '/src/pic/liked-icon.png' : '/src/pic/unliked-icon.png'"
-          :alt="item.isLiked ? 'исключить из избранного' : 'добавить в избранное'"
-          @click="toggleLikeItem"
-        />
-
-        <img
-          class="card__icon"
           :src="
             item.quantityPurchased ? '/src/pic/added-to-cart-icon.png' : '/src/pic/cart-icon.png'
           "
           :alt="item.quantityPurchased ? 'удалить из корзины' : 'добавить в корзину'"
           @click="togglePurchaseItem"
+        />
+        <img
+          class="card__icon"
+          :src="item.isLiked ? '/src/pic/liked-icon.png' : '/src/pic/unliked-icon.png'"
+          :alt="item.isLiked ? 'исключить из избранного' : 'добавить в избранное'"
+          @click="toggleLikeItem"
         />
       </div>
     </div>
@@ -81,28 +80,34 @@ const togglePurchaseItem = () => {
   display: flex;
   flex-direction: column;
   border: 1px solid #eeeeee;
+  position: relative;
 }
 
-.card__gap {
+/* .card__gap {
   display: block;
   height: 24px;
   width: 81px;
-  margin: 8px 0 0;
-}
+  margin: 23px 0 0;
+} */
 .card__discount {
   background-color: #eb5757;
   margin: 0;
-  padding: 0;
+  padding: 4px 12px;
+  top: 23px;
   text-align: center;
+  color: #fff;
+  z-index: 2;
+  position: absolute;
 }
 .card__img {
+  margin-top: 47px;
   width: 238px;
   object-fit: contain;
   align-self: center;
 }
 
 .card__code {
-  margin: 6px 0 6px 12px;
+  margin: 1px 0 9px 12px;
   font-size: 0.625rem;
   color: #888888;
   letter-spacing: 2%;
@@ -113,7 +118,7 @@ const togglePurchaseItem = () => {
   font-size: 1rem;
   letter-spacing: 2%;
   font-weight: 500;
-  margin: 0 0 10px 12px;
+  margin: 0 0 6px 12px;
 }
 
 .card__bottom-block {
@@ -137,13 +142,13 @@ const togglePurchaseItem = () => {
 .card__price_old {
   color: #888888;
   text-decoration: line-through;
-  margin: 0 9px 0 0;
+  margin: 0 8px 0 0;
 }
 
 .card__actions-block {
   display: flex;
   flex-direction: row;
-  column-gap: 8px;
+  column-gap: 27px;
 }
 
 .card__icon {

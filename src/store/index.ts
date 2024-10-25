@@ -91,9 +91,14 @@ export default createStore({
     loadFilterState({ commit }) {
       const filters = getFiltersFromLocalStorage();
       if (filters) {
-        console.log(filters.currentMaterial);
-        commit('setSort', filters.currentSort || 'byIncreasing');
-        commit('setMaterial', filters.currentMaterial || 'all');
+        commit(
+          'setSort',
+          filters.currentSort || { label: 'По возрастанию', value: 'byIncreasing' }
+        );
+        commit(
+          'setMaterial',
+          filters.currentMaterial || { label: 'По возрастанию', value: 'byIncreasing' }
+        );
       }
     }
   },
@@ -101,13 +106,15 @@ export default createStore({
     sortedAndFilteredItems(state) {
       let filteredItems = state.items;
 
-      if (state.currentMaterial !== 'all') {
-        filteredItems = filteredItems.filter(item => item.materialName === state.currentMaterial);
+      if (state.currentMaterial.value !== 'all') {
+        filteredItems = filteredItems.filter(
+          item => item.materialName === state.currentMaterial.value
+        );
       }
 
-      if (state.currentSort === 'byIncreasing') {
+      if (state.currentSort.value === 'byIncreasing') {
         return filteredItems.sort((a, b) => a.price.current_price - b.price.current_price);
-      } else if (state.currentSort === 'byDecreasing') {
+      } else if (state.currentSort.value === 'byDecreasing') {
         return filteredItems.sort((a, b) => b.price.current_price - a.price.current_price);
       }
 

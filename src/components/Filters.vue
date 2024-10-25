@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 import { ref, watch } from 'vue';
+import VsSelect from 'vs-vue3-select';
+import 'vs-vue3-select/dist/vs-vue3-select.css';
 
 defineOptions({
   name: 'Filters'
@@ -24,46 +26,56 @@ watch(
   }
 );
 
-const onSortChange = (event: Event) => {
-  const sortType = (event.target as HTMLSelectElement).value;
-  store.commit('setSort', sortType);
+const onSortChange = (value: string) => {
+  store.commit('setSort', value);
 };
 
-const onMaterialChange = (event: Event) => {
-  const material = (event.target as HTMLSelectElement).value;
-  store.commit('setMaterial', material);
+const onMaterialChange = (value: string) => {
+  store.commit('setMaterial', value);
 };
 </script>
 
 <template>
   <section class="filters">
-    <label class="filters__label">
-      Сортировать по:
-      <div class="filters__select-wrapper">
-        <select v-model="sortBy" class="filters__select" id="sortBy" @change="onSortChange">
-          <option class="filters__option" value="byIncreasing">По возрастанию</option>
-          <option class="filters__option" value="byDecreasing">По убыванию</option>
-        </select>
-      </div>
-    </label>
-    <label class="filters__label">
-      Материал
-      <div class="filters__select-wrapper">
-        <select v-model="material" class="filters__select" id="material" @change="onMaterialChange">
-          <option class="filters__option" value="all">Все</option>
-          <option class="filters__option" value="Металл">Металл</option>
-          <option class="filters__option" value="Дерево">Дерево</option>
-        </select>
-      </div>
-    </label>
+    <div class="filters__wrapper">
+      <label class="filters__label" for="sortBy">Сортировать по:</label>
+
+      <VsSelect
+        v-model="sortBy"
+        id="sortBy"
+        class="filters__select"
+        :options="[
+          { label: 'Цена по возрастанию', value: 'byIncreasing' },
+          { label: 'Цена по убыванию', value: 'byDecreasing' }
+        ]"
+        @update:modelValue="onSortChange"
+        :clearable="false"
+      />
+    </div>
+    <div class="filters__wrapper">
+      <label class="filters__label" for="material">Материал</label>
+
+      <VsSelect
+        v-model="material"
+        id="material"
+        class="filters__select"
+        :options="[
+          { label: 'Все', value: 'all' },
+          { label: 'Металл', value: 'Металл' },
+          { label: 'Дерево', value: 'Дерево' }
+        ]"
+        @update:modelValue="onMaterialChange"
+        :clearable="false"
+      />
+    </div>
   </section>
 </template>
 
-<style scoped>
+<style>
 .filters {
   display: flex;
   flex-direction: row;
-  margin: 32px 0 23px;
+  margin: 36px 0 23px;
   column-gap: 24px;
 }
 
@@ -74,46 +86,30 @@ const onMaterialChange = (event: Event) => {
   color: #4f4f4f;
   display: flex;
   flex-direction: column;
+  margin: 0 0 8px 15px;
+}
+.filters__select .vs__selected,
+.filters__select .vs__dropdown-toggle,
+.filters__select .vs__dropdown-menu {
+  font-family: 'SFProDisplay';
+  font-size: 0.875rem;
 }
 
-.filters__select-wrapper {
-  position: relative;
+.filters__select .vs__dropdown-toggle {
   width: 288px;
   height: 40px;
-  background-color: #f2f2f2;
-  box-sizing: border-box;
-}
-
-.filters__select {
-  width: 100%;
-  height: 100%;
+  border-radius: 0px;
   background-color: #f2f2f2;
   border: none;
-  padding: 0 10px;
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  padding-left: 2px;
 }
 
-.filters__select-wrapper::after {
-  content: '';
-  display: block;
-  width: 15px;
-  height: 15px;
-  position: absolute;
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: url('../pic/arrow-for-select.svg') no-repeat;
-  background-size: contain;
-}
-
-.filters__option {
-  padding: 0 10px;
-}
-
-.filters__option:hover {
-  background-color: red;
+:root {
+  --vs-dropdown-option--active-bg: #151717;
+  --vs-font-size: 1.875rem;
+  --vs-controls-size: 1.8;
+  --vs-dropdown-option--selected-bg: rgb(104, 104, 104);
+  --vs-actions-padding: 0 15px 0 0;
 }
 
 @media screen and (max-width: 850px) {
@@ -121,7 +117,10 @@ const onMaterialChange = (event: Event) => {
     display: flex;
     flex-direction: column;
     margin: 30px 0 0;
-    row-gap: 30px;
+  }
+
+  .filters__wrapper {
+    margin-bottom: 20px;
   }
 }
 </style>
