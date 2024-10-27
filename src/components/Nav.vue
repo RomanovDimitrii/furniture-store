@@ -17,10 +17,6 @@ defineOptions({
 </template>
 
 <style scoped>
-.nav {
-  display: flex;
-}
-
 .nav__container {
   display: flex;
   flex-direction: row;
@@ -45,6 +41,11 @@ defineOptions({
   margin: 0 17px 0 0;
 }
 
+.nav__link:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
 .nav__link_active {
   color: #000;
 }
@@ -56,6 +57,10 @@ defineOptions({
 
   .nav__item:first-of-type {
     margin: 0 2px 0 0;
+  }
+
+  .nav__item:nth-of-type(2) {
+    text-wrap: nowrap;
   }
 
   .nav__link {

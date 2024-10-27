@@ -8,6 +8,11 @@ import {
   getFiltersFromLocalStorage
 } from '@/utils/storage';
 
+interface FilterOption {
+  label: string;
+  value: string;
+}
+
 interface Item {
   id: string;
   name: string;
@@ -20,28 +25,38 @@ interface Item {
     url: string;
   };
   material: number;
+  materialName?: string;
   isLiked: boolean;
   quantityPurchased: number;
+}
+
+interface State {
+  items: Item[];
+  currentSort: FilterOption;
+  currentMaterial: FilterOption;
 }
 
 export default createStore({
   state: {
     items: [] as Item[],
-    currentSort: 'byIncreasing',
-    currentMaterial: 'all'
-  },
+    currentSort: { label: 'Цена по возрастанию', value: 'byIncreasing' },
+    currentMaterial: { label: 'Все', value: 'all' }
+  } as State,
   mutations: {
-    setItems(state, items: Item[]) {
+    setItems(state: State, items: Item[]) {
       state.items = items;
     },
-    toggleItemLiked(state, itemId: string) {
+    toggleItemLiked(state: State, itemId: string) {
       const item = state.items.find(item => item.id === itemId);
       if (item) {
         item.isLiked = !item.isLiked;
       }
       saveItemsToLocalStorage(state.items);
     },
-    updateItemQuantityPurchased(state, { itemId, quantity }: { itemId: string; quantity: number }) {
+    updateItemQuantityPurchased(
+      state: State,
+      { itemId, quantity }: { itemId: string; quantity: number }
+    ) {
       const item = state.items.find(item => item.id === itemId);
       if (item) {
         item.quantityPurchased = quantity;
@@ -49,14 +64,14 @@ export default createStore({
       saveItemsToLocalStorage(state.items);
     },
 
-    setSort(state, sortType: string) {
+    setSort(state: State, sortType: FilterOption) {
       state.currentSort = sortType;
       saveFiltersToLocalStorage({
         currentSort: state.currentSort,
         currentMaterial: state.currentMaterial
       });
     },
-    setMaterial(state, material: string) {
+    setMaterial(state: State, material: FilterOption) {
       state.currentMaterial = material;
       saveFiltersToLocalStorage({
         currentSort: state.currentSort,
@@ -73,7 +88,7 @@ export default createStore({
       } else {
         const items = itemsData.map((item: any) => {
           const materialObject = materialData.find(
-            material => parseInt(material.id) === item.material
+            (material: any) => parseInt(material.id) === item.material
           );
           const materialName = materialObject?.name ? materialObject.name : 'Unknown Material';
           return {
@@ -91,19 +106,13 @@ export default createStore({
     loadFilterState({ commit }) {
       const filters = getFiltersFromLocalStorage();
       if (filters) {
-        commit(
-          'setSort',
-          filters.currentSort || { label: 'По возрастанию', value: 'byIncreasing' }
-        );
-        commit(
-          'setMaterial',
-          filters.currentMaterial || { label: 'По возрастанию', value: 'byIncreasing' }
-        );
+        commit('setSort', filters.currentSort || 'byIncreasing');
+        commit('setMaterial', filters.currentMaterial || 'all');
       }
     }
   },
   getters: {
-    sortedAndFilteredItems(state) {
+    sortedAndFilteredItems(state: State) {
       let filteredItems = state.items;
 
       if (state.currentMaterial.value !== 'all') {

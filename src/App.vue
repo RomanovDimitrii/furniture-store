@@ -5,13 +5,13 @@ import ProductCards from './components/ProductCards.vue';
 </script>
 
 <template>
-  <div class="app-container">
+  <main class="app-container">
     <Nav />
 
     <h1 class="title">Комплекты стеллажных систем</h1>
     <Filters />
     <ProductCards />
-  </div>
+  </main>
 </template>
 
 <style scoped>
@@ -26,5 +26,11 @@ import ProductCards from './components/ProductCards.vue';
   font-weight: 600;
   font-size: 2.25rem;
   margin: 20px 0 0;
+}
+
+@media screen and (max-width: 850px) {
+  .app-container {
+    padding: 15px 5vw 103px;
+  }
 }
 </style>

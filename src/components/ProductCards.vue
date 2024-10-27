@@ -51,7 +51,7 @@ const items = computed(() => store.getters.sortedAndFilteredItems);
   }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 580px) {
   .cards {
     grid-template-columns: repeat(1, 1fr);
   }

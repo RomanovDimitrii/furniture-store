@@ -26,6 +26,13 @@ const props = defineProps<{ item: Item }>();
 
 const store = useStore();
 
+const addedToCartIcon = new URL('@/pic/added-to-cart-icon.png', import.meta.url).href;
+const cartIcon = new URL('@/pic/cart-icon.png', import.meta.url).href;
+const likedIcon = new URL('@/pic/liked-icon.png', import.meta.url).href;
+const unlikedIcon = new URL('@/pic/unliked-icon.png', import.meta.url).href;
+
+const cardImage = new URL(`../pic/${props.item.image.url}`, import.meta.url).href;
+
 const toggleLikeItem = () => {
   store.commit('toggleItemLiked', props.item.id);
 };
@@ -41,10 +48,9 @@ const togglePurchaseItem = () => {
 
 <template>
   <li class="card">
-    <!-- <div class="card__gap"> -->
     <p v-show="item.price.old_price !== null" class="card__discount">Скидка</p>
-    <!-- </div> -->
-    <img class="card__img" :src="item.image.url" :alt="item.name" />
+
+    <img class="card__img" :src="cardImage" :alt="item.name" />
     <p class="card__code">{{ item.code }}</p>
     <p v-if="item.code === null" class="card__code"></p>
     <h2 class="card__name">{{ item.name }}</h2>
@@ -56,20 +62,20 @@ const togglePurchaseItem = () => {
         <span class="card__price">{{ Math.round(item.price.current_price) }}&#8381;</span>
       </div>
       <div class="card__actions-block">
-        <img
-          class="card__icon"
-          :src="
-            item.quantityPurchased ? '/src/pic/added-to-cart-icon.png' : '/src/pic/cart-icon.png'
-          "
-          :alt="item.quantityPurchased ? 'удалить из корзины' : 'добавить в корзину'"
-          @click="togglePurchaseItem"
-        />
-        <img
-          class="card__icon"
-          :src="item.isLiked ? '/src/pic/liked-icon.png' : '/src/pic/unliked-icon.png'"
-          :alt="item.isLiked ? 'исключить из избранного' : 'добавить в избранное'"
-          @click="toggleLikeItem"
-        />
+        <button class="card__button" @click="togglePurchaseItem">
+          <img
+            class="card__icon"
+            :src="item.quantityPurchased ? addedToCartIcon : cartIcon"
+            :alt="item.quantityPurchased ? 'удалить из корзины' : 'добавить в корзину'"
+          />
+        </button>
+        <button class="card__button" @click="toggleLikeItem">
+          <img
+            class="card__icon"
+            :src="item.isLiked ? likedIcon : unlikedIcon"
+            :alt="item.isLiked ? 'исключить из избранного' : 'добавить в избранное'"
+          />
+        </button>
       </div>
     </div>
   </li>
@@ -83,12 +89,6 @@ const togglePurchaseItem = () => {
   position: relative;
 }
 
-/* .card__gap {
-  display: block;
-  height: 24px;
-  width: 81px;
-  margin: 23px 0 0;
-} */
 .card__discount {
   background-color: #eb5757;
   margin: 0;
@@ -151,8 +151,19 @@ const togglePurchaseItem = () => {
   column-gap: 27px;
 }
 
+.card__button {
+  display: flex;
+  border: none;
+  background-color: transparent;
+}
+
+.card__button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
 .card__icon {
   width: 19.8px;
+  height: 19.8px;
   object-fit: contain;
 }
 

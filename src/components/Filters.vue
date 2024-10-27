@@ -26,11 +26,11 @@ watch(
   }
 );
 
-const onSortChange = (value: string) => {
+const onSortChange = (value: { label: string; value: string }) => {
   store.commit('setSort', value);
 };
 
-const onMaterialChange = (value: string) => {
+const onMaterialChange = (value: { label: string; value: string }) => {
   store.commit('setMaterial', value);
 };
 </script>
@@ -86,9 +86,10 @@ const onMaterialChange = (value: string) => {
   color: #4f4f4f;
   display: flex;
   flex-direction: column;
-  margin: 0 0 8px 15px;
+  margin: 0 0 8px 13px;
 }
 .filters__select .vs__selected,
+.filters__select .vs__search,
 .filters__select .vs__dropdown-toggle,
 .filters__select .vs__dropdown-menu {
   font-family: 'SFProDisplay';
@@ -104,15 +105,23 @@ const onMaterialChange = (value: string) => {
   padding-left: 2px;
 }
 
-:root {
-  --vs-dropdown-option--active-bg: #151717;
-  --vs-font-size: 1.875rem;
-  --vs-controls-size: 1.8;
-  --vs-dropdown-option--selected-bg: rgb(104, 104, 104);
-  --vs-actions-padding: 0 15px 0 0;
+@media screen and (max-width: 670px) {
+  .filters__select .vs__dropdown-toggle {
+    width: 200px;
+  }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 465px) {
+  .filters__select .vs__dropdown-toggle {
+    width: 180px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .filters__select .vs__dropdown-toggle {
+    width: 100%;
+  }
+
   .filters {
     display: flex;
     flex-direction: column;

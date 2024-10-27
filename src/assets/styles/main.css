@@ -40,9 +40,19 @@ body {
   margin: 0;
   padding: 0;
 }
+/* стили для vsSelect */
+:root {
+  --vs-dropdown-option--active-bg: #151717;
+  --vs-font-size: 1.875rem;
+  --vs-controls-size: 1.8;
+  --vs-dropdown-option--selected-bg: rgb(104, 104, 104);
+  --vs-actions-padding: 0 15px 0 0;
+  --vs-dropdown-overflow-x: clip;
+  --vs-dropdown-overflow-y: clip;
+}
 
 @media screen and (max-width: 800px) {
   html {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
