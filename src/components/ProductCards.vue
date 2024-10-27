@@ -36,7 +36,7 @@ const items = computed(() => store.getters.sortedAndFilteredItems);
   padding: 0;
   margin: 0;
   column-gap: 48px;
-  row-gap: 40px;
+  row-gap: 35px;
 }
 
 @media screen and (max-width: 1460px) {

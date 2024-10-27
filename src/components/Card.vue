@@ -51,7 +51,10 @@ const togglePurchaseItem = () => {
     <p v-show="item.price.old_price !== null" class="card__discount">Скидка</p>
 
     <img class="card__img" :src="cardImage" :alt="item.name" />
-    <p class="card__code">{{ item.code }}</p>
+    <div class="card__text-wrapper">
+      <p v-if="item.code !== null" class="card__code">{{ item.code }}</p>
+    </div>
+
     <p v-if="item.code === null" class="card__code"></p>
     <h2 class="card__name">{{ item.name }}</h2>
     <div class="card__bottom-block">
@@ -92,22 +95,31 @@ const togglePurchaseItem = () => {
 .card__discount {
   background-color: #eb5757;
   margin: 0;
-  padding: 4px 12px;
+  padding: 4px 15px;
   top: 23px;
   text-align: center;
   color: #fff;
+  font-family: 'SFProDisplay';
+  font-size: 0.875rem;
+  font-weight: 500;
   z-index: 2;
   position: absolute;
 }
 .card__img {
-  margin-top: 47px;
+  margin: 27px 0 22px;
   width: 238px;
   object-fit: contain;
   align-self: center;
 }
 
+.card__text-wrapper {
+  display: block;
+  height: 0.625rem;
+  margin: 0px 0 11px 12px;
+}
+
 .card__code {
-  margin: 1px 0 9px 12px;
+  margin: 0;
   font-size: 0.625rem;
   color: #888888;
   letter-spacing: 2%;
@@ -125,7 +137,8 @@ const togglePurchaseItem = () => {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 9px 20px 10px 12px;
+  align-items: flex-end;
+  margin: 7px 16px 10px 12px;
 }
 
 .card__price-block {
@@ -148,7 +161,7 @@ const togglePurchaseItem = () => {
 .card__actions-block {
   display: flex;
   flex-direction: row;
-  column-gap: 27px;
+  column-gap: 11px;
 }
 
 .card__button {
